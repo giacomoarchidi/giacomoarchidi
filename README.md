@@ -6,7 +6,7 @@ I am a Data Science MSc student (EIT Digital Master School) with a background in
 This profile showcases selected projects that reflect both my technical expertise and my curiosity for interdisciplinary challenges:
 
 - 🌞 [Solar PV Optimization Thesis](https://github.com/giacomoarchidi/solar-pv-optimization-thesis)  
-  Applying machine learning to optimize photovoltaic energy output, integrating environmental variables like CO₂, irradiance, and temperature.
+  Applying machine learning to optimize photovoltaic energy output, integrating environmental variables.
 
 - 🎧 [Otolith Reactance & Coherence Case Study](https://github.com/giacomoarchidi/otolith-reactance-coherence-case-study)  
   A reproducible analysis on otolith impedance with synthetic datasets, per-subject resonance detection, and visualization pipelines.
