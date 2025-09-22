@@ -1,4 +1,3 @@
-Portfolio: https://giacomoarchidi.github.io/about
 # Hi, I'm Giacomo Archidi 👋
 
 Welcome to my GitHub profile.  
