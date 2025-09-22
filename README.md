@@ -29,5 +29,3 @@ This profile showcases selected projects that reflect both my technical expertis
 - Passionate about bridging physics, data science, and innovation  
 - Exploring the intersection of technology and society  
 - Looking forward to research and industry collaborations  
-
-📬 Feel free to connect with me on [LinkedIn]([https://www.linkedin.com/in/giacomo-archidi-3a223317a/]) or check out the repositories above.
