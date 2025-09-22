@@ -29,4 +29,4 @@ This profile showcases selected projects that reflect both my technical expertis
 - Exploring the intersection of technology and society  
 - Looking forward to research and industry collaborations  
 
-📬 Feel free to connect with me on [LinkedIn](https://www.linkedin.com/in/giacomo-archidi) or check out the repositories above.
+📬 Feel free to connect with me on [LinkedIn]([https://www.linkedin.com/in/giacomo-archidi-3a223317a/]) or check out the repositories above.
