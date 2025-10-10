@@ -17,6 +17,16 @@ app = FastAPI(
     redoc_url="/redoc" if settings.ENV == "dev" else None,
 )
 
+# Middleware personalizzato per CORS
+@app.middleware("http")
+async def add_cors_headers(request, call_next):
+    response = await call_next(request)
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
+    response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization"
+    response.headers["Access-Control-Max-Age"] = "3600"
+    return response
+
 # CORS middleware - Configurazione aggiornata
 app.add_middleware(
     CORSMiddleware,
