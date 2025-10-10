@@ -1,5 +1,5 @@
 import apiClient from './client';
-import { User, Lesson, Report, PaginatedResponse } from '../types';
+import type { Lesson, Report } from '../types';
 
 export interface Child {
   id: number;

@@ -1,5 +1,5 @@
 import apiClient from './client';
-import { Payment, PaginatedResponse } from '../types';
+import type { Payment } from '../types';
 
 export interface PaymentHistoryResponse {
   data: Payment[];

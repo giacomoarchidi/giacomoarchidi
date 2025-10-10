@@ -1,5 +1,5 @@
 import apiClient from './client';
-import { User, Lesson, Payment, PaginatedResponse } from '../types';
+import type { User, Lesson, Payment } from '../types';
 
 export interface AdminStats {
   total_users: number;

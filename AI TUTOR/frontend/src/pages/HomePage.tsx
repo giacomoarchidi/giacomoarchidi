@@ -78,8 +78,8 @@ const HomePage: React.FC = () => {
       </div>
 
       {/* Header */}
-      <header className="relative z-10 bg-slate-900/80 backdrop-blur-xl shadow-2xl border-b border-blue-500/20">
-        <div className="container mx-auto px-4 py-6">
+      <header className="relative z-10 mx-4 md:mx-8 mt-6 mb-4 bg-gradient-to-r from-slate-900/70 via-slate-900/60 to-slate-900/70 backdrop-blur-xl shadow-2xl shadow-blue-500/10 border border-blue-500/30 rounded-2xl hover:border-blue-400/50 transition-all duration-300 hover:shadow-blue-500/20">
+        <div className="container mx-auto px-6 md:px-8 py-5">
           <div className="flex justify-between items-center">
             <div className="flex items-center space-x-3 group cursor-pointer">
               <div className="w-12 h-12 bg-gradient-to-br from-blue-500 via-blue-600 to-cyan-500 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/50 transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 ring-2 ring-blue-400/30 ring-offset-2 ring-offset-slate-900">
@@ -92,17 +92,17 @@ const HomePage: React.FC = () => {
               <a href="#about" className="text-white/80 hover:text-blue-300 transition-all duration-300 hover:scale-105 font-medium relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-blue-400 after:transition-all after:duration-300">Chi Siamo</a>
               <a href="#contact" className="text-white/80 hover:text-blue-300 transition-all duration-300 hover:scale-105 font-medium relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-blue-400 after:transition-all after:duration-300">Contatti</a>
             </nav>
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-3">
               <button 
                 onClick={() => setShowLogin(true)}
-                className="text-white/80 hover:text-blue-300 transition-all duration-300 hover:scale-105 font-medium px-4 py-2 rounded-lg hover:bg-blue-500/10"
+                className="text-white/90 hover:text-white transition-all duration-300 hover:scale-105 font-medium px-5 py-2.5 rounded-xl hover:bg-blue-500/20 backdrop-blur-sm"
               >
                 Login
               </button>
-              <Link to="/create-profile" className="text-white/80 hover:text-blue-300 transition-all duration-300 hover:scale-105 font-medium px-4 py-2 rounded-lg hover:bg-blue-500/10">
+              <Link to="/create-profile" className="hidden sm:block text-white/90 hover:text-white transition-all duration-300 hover:scale-105 font-medium px-5 py-2.5 rounded-xl hover:bg-blue-500/20 backdrop-blur-sm">
                 Registrati
               </Link>
-              <Link to="/create-profile" className="bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 text-white px-6 py-3 rounded-xl font-semibold shadow-lg shadow-blue-500/50 hover:shadow-blue-500/70 transform hover:scale-105 transition-all duration-300 hover:from-blue-700 hover:to-cyan-600 ring-2 ring-blue-400/30 ring-offset-2 ring-offset-slate-900">
+              <Link to="/create-profile" className="bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 text-white px-6 py-2.5 rounded-xl font-semibold shadow-lg shadow-blue-500/40 hover:shadow-blue-500/60 transform hover:scale-105 transition-all duration-300 hover:from-blue-700 hover:to-cyan-600">
                 Inizia Ora
               </Link>
             </div>
@@ -111,8 +111,8 @@ const HomePage: React.FC = () => {
       </header>
 
       {/* Hero Section */}
-      <section className="relative z-10 py-32">
-        <div className="container mx-auto px-4 text-center">
+      <section className="relative z-10 py-20 md:py-28">
+        <div className="container mx-auto px-4 md:px-8 text-center">
           <div className="max-w-5xl mx-auto">
             <div className="inline-block mb-6 px-6 py-2 bg-blue-500/10 border border-blue-400/30 rounded-full text-blue-300 text-sm font-semibold backdrop-blur-sm">
               🚀 Innovazione nell'Educazione

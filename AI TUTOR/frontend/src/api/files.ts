@@ -1,5 +1,5 @@
 import apiClient from './client';
-import { File, PaginatedResponse } from '../types';
+import type { File as FileType } from '../types';
 
 export interface FileUploadResponse {
   file_id: number;
@@ -10,7 +10,7 @@ export interface FileUploadResponse {
 }
 
 export interface FileListResponse {
-  data: File[];
+  data: FileType[];
   total: number;
   page: number;
   size: number;
@@ -23,7 +23,7 @@ export interface PresignedUrlResponse {
 
 export const filesApi = {
   // Upload a file
-  uploadFile: async (file: File): Promise<FileUploadResponse> => {
+  uploadFile: async (file: globalThis.File): Promise<FileUploadResponse> => {
     const formData = new FormData();
     formData.append('file', file);
     
@@ -44,7 +44,7 @@ export const filesApi = {
   },
 
   // Get file details
-  getFile: async (fileId: number): Promise<File> => {
+  getFile: async (fileId: number): Promise<FileType> => {
     const response = await apiClient.get(`/files/${fileId}`);
     return response.data;
   },

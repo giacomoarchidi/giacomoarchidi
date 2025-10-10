@@ -247,10 +247,10 @@ const TutorDashboard: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-green-900 to-slate-900 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 flex items-center justify-center">
         <div className="flex flex-col items-center">
           <div className="relative w-16 h-16 mb-6">
-            <div className="absolute inset-0 border-4 border-green-200 border-t-cyan-600 rounded-full animate-spin"></div>
+            <div className="absolute inset-0 border-4 border-blue-200 border-t-cyan-600 rounded-full animate-spin"></div>
             <div className="absolute inset-0 border-4 border-transparent border-t-blue-600 rounded-full animate-spin" style={{animationDirection: 'reverse', animationDuration: '1.5s'}}></div>
           </div>
           <p className="text-white/80 text-lg">Caricamento dashboard...</p>
@@ -262,13 +262,13 @@ const TutorDashboard: React.FC = () => {
   const { totalDays, totalHours } = getAvailabilitySummary();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-green-900 to-slate-900">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
       {/* Header */}
       <header className="bg-white/10 backdrop-blur-md shadow-xl border-b border-white/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-6">
             <div>
-              <h1 className="text-4xl font-bold bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent flex items-center space-x-4">
+              <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent flex items-center space-x-4">
                 <span>Dashboard Tutor</span>
                 {pendingRequests.length > 0 && (
                   <span className="relative">
@@ -357,7 +357,7 @@ const TutorDashboard: React.FC = () => {
             </div>
           </div>
 
-          <div className="group bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 hover:border-green-400/50 transform hover:scale-105 transition-all duration-300 hover:shadow-2xl hover:shadow-cyan-500/10">
+          <div className="group bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 hover:border-cyan-400/50 transform hover:scale-105 transition-all duration-300 hover:shadow-2xl hover:shadow-cyan-500/10">
               <div className="flex items-center">
               <div className="p-3 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-xl mr-4 group-hover:rotate-12 transition-transform duration-300">
                 <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -366,7 +366,7 @@ const TutorDashboard: React.FC = () => {
                   </div>
               <div>
                 <p className="text-white/70 text-sm font-medium">Lezioni Settimana</p>
-                <p className="text-3xl font-bold text-white group-hover:text-green-300 transition-colors duration-300">
+                <p className="text-3xl font-bold text-white group-hover:text-cyan-300 transition-colors duration-300">
                   {loading ? '...' : weekLessons.length}
                 </p>
               </div>
@@ -468,7 +468,7 @@ const TutorDashboard: React.FC = () => {
           <div className="bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 shadow-xl">
             <div className="px-8 py-6 border-b border-white/20">
               <h2 className="text-2xl font-bold text-white flex items-center">
-                <svg className="w-6 h-6 mr-3 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-6 h-6 mr-3 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 Prossime Lezioni
@@ -491,13 +491,13 @@ const TutorDashboard: React.FC = () => {
                     <div key={lesson.id} className="group bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10 hover:border-white/30 transition-all duration-300 hover:bg-white/10">
                       <div className="flex justify-between items-start">
                         <div className="flex-1">
-                          <h3 className="text-xl font-semibold text-white mb-2 group-hover:text-green-300 transition-colors duration-300">{lesson.subject}</h3>
+                          <h3 className="text-xl font-semibold text-white mb-2 group-hover:text-blue-300 transition-colors duration-300">{lesson.subject}</h3>
                           <p className="text-white/70 mb-1">con <span className="font-medium">{lesson.student_name}</span></p>
                           <p className="text-white/60 text-sm">{formatDateTime(lesson.start_at)}</p>
           </div>
                         <div className="flex flex-col items-end space-y-3">
                           <span className={`px-3 py-1 text-xs rounded-full font-medium ${
-                            lesson.status === 'confirmed' ? 'bg-cyan-500/20 text-green-300 border border-cyan-500/30' :
+                            lesson.status === 'confirmed' ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/30' :
                             lesson.status === 'pending_payment' ? 'bg-yellow-500/20 text-yellow-300 border border-yellow-500/30' :
                             lesson.status === 'cancelled' ? 'bg-red-500/20 text-red-300 border border-red-500/30' :
                             'bg-gray-500/20 text-gray-300 border border-gray-500/30'
@@ -554,7 +554,7 @@ const TutorDashboard: React.FC = () => {
                       </div>
                       <span className={`px-3 py-1 text-xs rounded-full font-medium ${
                         av.is_available 
-                          ? 'bg-cyan-500/20 text-green-300 border border-cyan-500/30' 
+                          ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/30' 
                           : 'bg-red-500/20 text-red-300 border border-red-500/30'
                       }`}>
                         {av.is_available ? 'Disponibile' : 'Non disponibile'}
@@ -567,7 +567,7 @@ const TutorDashboard: React.FC = () => {
         <div className="flex items-center space-x-4">
           <Link 
             to="/tutor/availability" 
-            className="group inline-flex items-center text-green-400 hover:text-green-300 text-sm font-medium transition-colors duration-300"
+            className="group inline-flex items-center text-cyan-400 hover:text-cyan-300 text-sm font-medium transition-colors duration-300"
           >
             <span>Modifica disponibilità</span>
             <svg className="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -643,7 +643,7 @@ const TutorDashboard: React.FC = () => {
       {/* Modal Conferma Lezione */}
       {showConfirmModal && selectedLesson && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-in fade-in duration-300">
-          <div className="bg-gradient-to-br from-cyan-500/20 to-blue-500/20 backdrop-blur-xl rounded-3xl border-2 border-green-400/30 p-8 max-w-md w-full transform animate-in zoom-in-95 duration-300 shadow-2xl">
+          <div className="bg-gradient-to-br from-cyan-500/20 to-blue-500/20 backdrop-blur-xl rounded-3xl border-2 border-cyan-400/30 p-8 max-w-md w-full transform animate-in zoom-in-95 duration-300 shadow-2xl">
             {/* Icon */}
             <div className="flex justify-center mb-6">
               <div className="relative">
@@ -673,7 +673,7 @@ const TutorDashboard: React.FC = () => {
             <div className="bg-white/10 rounded-2xl p-4 mb-6 border border-white/20">
               <div className="flex items-center space-x-3">
                 <div className="w-10 h-10 bg-cyan-500/20 rounded-lg flex items-center justify-center">
-                  <svg className="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                   </svg>
                 </div>
