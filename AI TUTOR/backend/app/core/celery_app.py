@@ -1,17 +1,22 @@
 from celery import Celery
 from app.core.config import settings
 
-# Create Celery app
-celery_app = Celery(
-    "tutoring_platform",
-    broker=settings.REDIS_URL,
-    backend=settings.REDIS_URL,
-    include=[
-        "app.services.ai",
-        "app.services.notifications",
-        "app.services.reports"
-    ]
-)
+# Create Celery app - with fallback if Redis not available
+try:
+    celery_app = Celery(
+        "tutoring_platform",
+        broker=settings.REDIS_URL,
+        backend=settings.REDIS_URL,
+        include=[
+            "app.services.ai",
+            "app.services.notifications",
+            "app.services.reports"
+        ]
+    )
+except Exception as e:
+    # Fallback: create a dummy celery app for deployment without Redis
+    print(f"Warning: Celery initialization failed: {e}. Creating dummy instance.")
+    celery_app = Celery("tutoring_platform")
 
 # Celery configuration
 celery_app.conf.update(
