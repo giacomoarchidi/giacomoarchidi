@@ -7,7 +7,7 @@ export const apiClient = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
-  withCredentials: true,  // Necessario per inviare token di autenticazione
+  withCredentials: false,  // Disabilitato per compatibilità con CORS wildcard
 });
 
 // Request interceptor to add auth token
