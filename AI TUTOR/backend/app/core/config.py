@@ -57,8 +57,14 @@ class Settings(BaseSettings):
     AGORA_APP_ID: str = "4d3c5454d08847ed9536332dad1b6759"
     AGORA_APP_CERTIFICATE: str = "5c6993d86ecc434682beb8873b3ae5c8"
 
-    # CORS
-    CORS_ORIGINS: List[str] = ["http://localhost:5173", "http://localhost:3000"]
+    # CORS - Può essere stringa separata da virgole o lista
+    CORS_ORIGINS: str = "http://localhost:5173,http://localhost:3000"
+
+    def get_cors_origins(self) -> List[str]:
+        """Parse CORS origins from comma-separated string"""
+        if isinstance(self.CORS_ORIGINS, str):
+            return [origin.strip() for origin in self.CORS_ORIGINS.split(",")]
+        return self.CORS_ORIGINS
 
     class Config:
         env_file = ".env.dev"
