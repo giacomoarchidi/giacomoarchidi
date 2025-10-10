@@ -208,11 +208,12 @@ class FileSystemStorage(StorageInterface):
 # Storage factory
 def get_storage() -> StorageInterface:
     """Get storage implementation based on environment"""
-    if settings.ENV == "dev":
-        # For standalone development, use FileSystemStorage
-        return FileSystemStorage()
-    else:
+    # Use S3 only if credentials are configured
+    if settings.S3_ENDPOINT_URL and settings.S3_ACCESS_KEY and settings.S3_SECRET_KEY:
         return S3Storage()
+    else:
+        # Fallback to filesystem storage
+        return FileSystemStorage()
 
 
 # Global storage instance
