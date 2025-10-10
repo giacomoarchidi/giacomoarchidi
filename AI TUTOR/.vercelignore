@@ -1,0 +1,12 @@
+backend/
+ops/
+*.md
+.git/
+.gitignore
+*.xlsx
+backend/venv/
+backend/__pycache__/
+backend/uploads/
+backend/templates/
+backend/tests/
+

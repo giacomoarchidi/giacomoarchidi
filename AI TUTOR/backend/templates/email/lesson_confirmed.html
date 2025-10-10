@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Lezione Confermata{% endblock %}
+
+{% block content %}
+<h1>🎉 Lezione Confermata!</h1>
+
+<p>Ciao {{ student_name }},</p>
+
+<p>La tua lezione è stata <strong>confermata con successo</strong> e il pagamento è stato elaborato.</p>
+
+<div class="highlight">
+    <h3>📚 Dettagli Lezione</h3>
+    <ul style="list-style: none; padding: 0;">
+        <li><strong>Tutor:</strong> {{ tutor_name }}</li>
+        <li><strong>Data e Ora:</strong> {{ lesson_datetime }}</li>
+        <li><strong>Stato:</strong> ✅ Confermata</li>
+    </ul>
+</div>
+
+{% if room_url %}
+<div class="info-box">
+    <h3>💻 Link Aula Virtuale</h3>
+    <p>La tua lezione si svolgerà online. Clicca sul link qui sotto per accedere all'aula virtuale:</p>
+    <a href="{{ room_url }}" class="button" target="_blank">Entra in Aula</a>
+    <p><small>⚠️ Il link sarà attivo 10 minuti prima dell'inizio della lezione.</small></p>
+</div>
+{% endif %}
+
+<h3>📝 Cosa fare ora?</h3>
+<ol>
+    <li>Assicurati di avere una connessione internet stabile</li>
+    <li>Prepara il materiale necessario per la lezione</li>
+    <li>Accedi all'aula virtuale 5 minuti prima dell'inizio</li>
+    <li>Goditi la tua lezione!</li>
+</ol>
+
+<div class="info-box">
+    <h3>📧 Promemoria</h3>
+    <p>Ti invieremo un promemoria 24 ore prima della lezione. Nel frattempo, puoi sempre visualizzare i dettagli della lezione nella tua dashboard.</p>
+    <a href="{{ platform_url }}/student/lessons" class="button">Visualizza Lezioni</a>
+</div>
+
+<h3>Hai bisogno di aiuto?</h3>
+<p>Se hai domande o problemi tecnici, non esitare a contattare il nostro supporto.</p>
+
+<p>Buona lezione!</p>
+
+<p>Il Team di Tutoring Platform</p>
+{% endblock %}

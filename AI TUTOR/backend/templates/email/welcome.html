@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Benvenuto su Tutoring Platform{% endblock %}
+
+{% block content %}
+<h1>Ciao {{ user_name }}! 👋</h1>
+
+<p>Benvenuto su <strong>Tutoring Platform</strong>, la piattaforma di apprendimento online che ti aiuta a raggiungere i tuoi obiettivi educativi.</p>
+
+<div class="highlight">
+    <h3>🎉 Il tuo account è stato creato con successo!</h3>
+    <p><strong>Ruolo:</strong> {{ role|title }}</p>
+</div>
+
+{% if role == "student" %}
+<h2>Come studente, puoi:</h2>
+<ul>
+    <li>📚 Prenotare lezioni con tutor qualificati</li>
+    <li>💻 Partecipare a lezioni online interattive</li>
+    <li>📝 Ricevere appunti e materiali personalizzati</li>
+    <li>📊 Monitorare il tuo progresso</li>
+    <li>📁 Accedere ai compiti e materiali assegnati</li>
+</ul>
+{% elif role == "tutor" %}
+<h2>Come tutor, puoi:</h2>
+<ul>
+    <li>👥 Gestire i tuoi studenti</li>
+    <li>📅 Impostare la tua disponibilità</li>
+    <li>💼 Condurre lezioni online</li>
+    <li>📈 Monitorare i progressi degli studenti</li>
+    <li>💰 Gestire i tuoi guadagni</li>
+</ul>
+{% elif role == "parent" %}
+<h2>Come genitore, puoi:</h2>
+<ul>
+    <li>👨‍👩‍👧‍👦 Monitorare il progresso dei tuoi figli</li>
+    <li>📊 Ricevere report mensili dettagliati</li>
+    <li>💳 Gestire i pagamenti</li>
+    <li>📧 Ricevere notifiche sui progressi</li>
+    <li>🤝 Comunicare con i tutor</li>
+</ul>
+{% endif %}
+
+<div class="info-box">
+    <h3>🚀 Pronti a iniziare?</h3>
+    <p>Accedi alla tua dashboard per esplorare tutte le funzionalità disponibili.</p>
+    <a href="{{ platform_url }}/login" class="button">Accedi alla Piattaforma</a>
+</div>
+
+<h3>Hai domande?</h3>
+<p>Il nostro team di supporto è sempre disponibile per aiutarti. Non esitare a contattarci se hai bisogno di assistenza.</p>
+
+<p>Grazie per aver scelto Tutoring Platform!</p>
+
+<p>Il Team di Tutoring Platform</p>
+{% endblock %}

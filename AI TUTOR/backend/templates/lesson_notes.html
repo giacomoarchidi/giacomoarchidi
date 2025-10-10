@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appunti Lezione - {{ subject }}</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            text-align: center;
+            border-bottom: 3px solid #4a90e2;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            color: #4a90e2;
+            margin: 0;
+            font-size: 28px;
+        }
+        
+        .meta-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .content {
+            margin-top: 30px;
+        }
+        
+        .content h2 {
+            color: #4a90e2;
+            border-left: 4px solid #4a90e2;
+            padding-left: 15px;
+            margin-top: 25px;
+        }
+        
+        .content h3 {
+            color: #333;
+            margin-top: 20px;
+        }
+        
+        .content ul, .content ol {
+            margin-left: 20px;
+        }
+        
+        .content li {
+            margin-bottom: 8px;
+        }
+        
+        .highlight-box {
+            background-color: #f0f8ff;
+            border-left: 4px solid #4a90e2;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            text-align: center;
+            color: #666;
+            font-size: 12px;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+            }
+            
+            .container {
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>{{ subject }}</h1>
+            <div class="meta-info">
+                <div><strong>Studente:</strong> {{ student_name }}</div>
+                <div><strong>Tutor:</strong> {{ tutor_name }}</div>
+                <div><strong>Data:</strong> {{ date }}</div>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="highlight-box">
+                <strong>📚 Appunti della Lezione</strong>
+            </div>
+            
+            <div class="notes-content">
+                {{ notes_html|safe }}
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>Questi appunti sono stati generati automaticamente dalla piattaforma AI Tutor.</p>
+            <p>Per domande o chiarimenti, contattare il tutor.</p>
+        </div>
+    </div>
+</body>
+</html>

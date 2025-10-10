@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Promemoria Lezione{% endblock %}
+
+{% block content %}
+<h1>⏰ Promemoria Lezione</h1>
+
+<p>Ciao {{ student_name }},</p>
+
+<p>Questo è un promemoria che hai una lezione in programma tra <strong>{{ hours_before }} ore</strong>!</p>
+
+<div class="highlight">
+    <h3>📚 Dettagli Lezione</h3>
+    <ul style="list-style: none; padding: 0;">
+        <li><strong>Tutor:</strong> {{ tutor_name }}</li>
+        <li><strong>Data e Ora:</strong> {{ lesson_datetime }}</li>
+        <li><strong>Stato:</strong> ✅ Confermata</li>
+    </ul>
+</div>
+
+{% if room_url %}
+<div class="info-box">
+    <h3>💻 Link Aula Virtuale</h3>
+    <p>La tua lezione si svolgerà online. Clicca sul link qui sotto per accedere all'aula virtuale:</p>
+    <a href="{{ room_url }}" class="button" target="_blank">Entra in Aula</a>
+    <p><small>⚠️ Il link sarà attivo 10 minuti prima dell'inizio della lezione.</small></p>
+</div>
+{% endif %}
+
+<h3>📝 Checklist Pre-Lezione</h3>
+<ul>
+    <li>✅ Verifica la connessione internet</li>
+    <li>✅ Prepara il materiale necessario</li>
+    <li>✅ Trova un ambiente tranquillo</li>
+    <li>✅ Accendi la webcam e il microfono</li>
+    <li>✅ Accedi all'aula 5 minuti prima</li>
+</ul>
+
+<div class="info-box">
+    <h3>🔧 Problemi Tecnici?</h3>
+    <p>Se riscontri problemi di connessione o tecnici, contatta immediatamente il nostro supporto tecnico.</p>
+    <p><strong>Supporto:</strong> support@tutoring-platform.com</p>
+</div>
+
+<h3>💡 Suggerimenti per una lezione di successo</h3>
+<ul>
+    <li>Spegni le notifiche del telefono</li>
+    <li>Chiudi le applicazioni non necessarie</li>
+    <li>Prepara domande da fare al tutor</li>
+    <li>Prendi appunti durante la lezione</li>
+</ul>
+
+<p>Buona lezione e buon apprendimento!</p>
+
+<p>Il Team di Tutoring Platform</p>
+{% endblock %}

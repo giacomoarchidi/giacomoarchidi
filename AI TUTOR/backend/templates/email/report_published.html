@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}Nuovo Report Mensile Disponibile{% endblock %}
+
+{% block content %}
+<h1>📊 Nuovo Report Mensile Disponibile</h1>
+
+<p>Ciao {{ parent_name }},</p>
+
+<p>È disponibile un nuovo <strong>report mensile</strong> per {{ student_name }}!</p>
+
+<div class="highlight">
+    <h3>📈 Report Mensile</h3>
+    <ul style="list-style: none; padding: 0;">
+        <li><strong>Studente:</strong> {{ student_name }}</li>
+        <li><strong>Periodo:</strong> {{ period }}</li>
+        <li><strong>Stato:</strong> ✅ Pronto per la consultazione</li>
+    </ul>
+</div>
+
+<div class="info-box">
+    <h3>📋 Cosa contiene il report?</h3>
+    <ul>
+        <li>📚 Riepilogo delle lezioni completate</li>
+        <li>🎯 Obiettivi raggiunti</li>
+        <li>📈 Progressi nelle materie</li>
+        <li>💡 Suggerimenti per il miglioramento</li>
+        <li>📝 Note del tutor</li>
+        <li>🎯 Raccomandazioni per il prossimo mese</li>
+    </ul>
+</div>
+
+<div class="info-box">
+    <h3>📖 Visualizza il Report</h3>
+    <p>Clicca sul pulsante qui sotto per accedere al report completo:</p>
+    <a href="{{ report_url }}" class="button">Visualizza Report</a>
+</div>
+
+<h3>📊 Monitoraggio Progressi</h3>
+<p>Questi report mensili ti permettono di:</p>
+<ul>
+    <li>Tracciare i progressi di tuo figlio</li>
+    <li>Identificare aree di forza e miglioramento</li>
+    <li>Comunicare efficacemente con i tutor</li>
+    <li>Supportare l'apprendimento a casa</li>
+</ul>
+
+<div class="info-box">
+    <h3>💬 Feedback e Domande</h3>
+    <p>Se hai domande sul report o vuoi discutere i progressi di tuo figlio, non esitare a contattare il tutor o il nostro team di supporto.</p>
+</div>
+
+<h3>🎯 Prossimi Passi</h3>
+<p>Consigliamo di:</p>
+<ol>
+    <li>Leggere attentamente il report</li>
+    <li>Discutere i risultati con tuo figlio</li>
+    <li>Implementare i suggerimenti forniti</li>
+    <li>Pianificare gli obiettivi per il prossimo mese</li>
+</ol>
+
+<p>Grazie per la tua fiducia in Tutoring Platform!</p>
+
+<p>Il Team di Tutoring Platform</p>
+{% endblock %}

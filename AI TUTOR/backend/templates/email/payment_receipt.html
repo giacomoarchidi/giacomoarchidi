@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Ricevuta di Pagamento{% endblock %}
+
+{% block content %}
+<h1>💰 Ricevuta di Pagamento</h1>
+
+<p>Ciao {{ student_name }},</p>
+
+<p>Il pagamento per la tua lezione è stato <strong>elaborato con successo</strong>. Ecco i dettagli della transazione:</p>
+
+<div class="highlight">
+    <h3>📋 Dettagli Pagamento</h3>
+    <ul style="list-style: none; padding: 0;">
+        <li><strong>Importo:</strong> €{{ amount }}</li>
+        <li><strong>Valuta:</strong> {{ currency }}</li>
+        <li><strong>Data Pagamento:</strong> {{ lesson_datetime }}</li>
+        <li><strong>Stato:</strong> ✅ Completato</li>
+    </ul>
+</div>
+
+<div class="info-box">
+    <h3>🧾 Ricevuta Fiscale</h3>
+    <p>Questa email funge da ricevuta per il pagamento effettuato. Conservala per i tuoi archivi.</p>
+    <p><strong>ID Transazione:</strong> {{ transaction_id or "Generato automaticamente" }}</p>
+</div>
+
+<h3>📚 Cosa succede ora?</h3>
+<ol>
+    <li>La tua lezione è stata confermata</li>
+    <li>Riceverai un'email di conferma con i dettagli</li>
+    <li>Ti invieremo un promemoria 24 ore prima</li>
+    <li>Potrai accedere all'aula virtuale al momento stabilito</li>
+</ol>
+
+<div class="info-box">
+    <h3>📊 Gestisci i Tuoi Pagamenti</h3>
+    <p>Puoi visualizzare tutti i tuoi pagamenti e ricevute nella tua dashboard.</p>
+    <a href="{{ platform_url }}/student/payments" class="button">Visualizza Pagamenti</a>
+</div>
+
+<h3>❓ Domande sui Pagamenti?</h3>
+<p>Se hai domande sui pagamenti o hai bisogno di assistenza, non esitare a contattare il nostro team di supporto.</p>
+
+<p><strong>Supporto Pagamenti:</strong> billing@tutoring-platform.com</p>
+
+<h3>🔒 Sicurezza</h3>
+<p>I tuoi dati di pagamento sono protetti con crittografia SSL e non vengono memorizzati sui nostri server.</p>
+
+<p>Grazie per aver scelto Tutoring Platform!</p>
+
+<p>Il Team di Tutoring Platform</p>
+{% endblock %}
