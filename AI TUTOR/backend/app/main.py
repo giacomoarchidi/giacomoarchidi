@@ -7,6 +7,13 @@ from app.routers import (
     auth, users, lessons, availability, payments, assignments, files, feedback, reports, 
     tutor, parent, admin, health, video
 )
+import logging
+import os
+from pathlib import Path
+
+# Setup logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 # Create FastAPI app
 app = FastAPI(
@@ -16,6 +23,51 @@ app = FastAPI(
     docs_url="/docs" if settings.ENV == "dev" else None,
     redoc_url="/redoc" if settings.ENV == "dev" else None,
 )
+
+# Startup event: Run database migrations automatically
+@app.on_event("startup")
+async def run_migrations():
+    """Esegui automaticamente le migrazioni del database all'avvio"""
+    try:
+        logger.info("🔄 Esecuzione migrazioni database...")
+        
+        # Import Alembic
+        from alembic.config import Config
+        from alembic import command
+        
+        # Trova il percorso di alembic.ini
+        # Cerca nella directory corrente e nelle directory parent
+        current_dir = Path.cwd()
+        alembic_ini_path = None
+        
+        # Prova prima nella directory corrente
+        if (current_dir / "alembic.ini").exists():
+            alembic_ini_path = str(current_dir / "alembic.ini")
+        # Prova nella directory backend se siamo in una sottocartella
+        elif (current_dir.parent / "alembic.ini").exists():
+            alembic_ini_path = str(current_dir.parent / "alembic.ini")
+        # Prova nella directory app
+        elif (current_dir / "app" / ".." / "alembic.ini").exists():
+            alembic_ini_path = str((current_dir / "app" / ".." / "alembic.ini").resolve())
+        
+        if not alembic_ini_path:
+            logger.warning("⚠️ alembic.ini non trovato, salto le migrazioni")
+            return
+        
+        logger.info(f"📁 Usando alembic.ini: {alembic_ini_path}")
+        
+        # Configura Alembic
+        alembic_cfg = Config(alembic_ini_path)
+        
+        # Esegui le migrazioni
+        command.upgrade(alembic_cfg, "head")
+        
+        logger.info("✅ Migrazioni database completate con successo!")
+        
+    except Exception as e:
+        logger.error(f"❌ Errore durante le migrazioni: {e}")
+        logger.warning("⚠️ L'applicazione continuerà comunque...")
+        # Non blocchiamo l'avvio dell'app se le migrazioni falliscono
 
 # Middleware personalizzato per CORS - Configurazione ultra-robusta
 @app.middleware("http")
