@@ -5,7 +5,7 @@ from app.models.base import Base
 
 # Create database engine
 engine = create_engine(
-    settings.DATABASE_URL,
+    settings.get_database_url(),
     pool_pre_ping=True,
     pool_recycle=300,
     echo=settings.ENV == "dev"
