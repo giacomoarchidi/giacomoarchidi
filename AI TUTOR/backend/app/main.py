@@ -69,34 +69,14 @@ async def run_migrations():
         logger.warning("⚠️ L'applicazione continuerà comunque...")
         # Non blocchiamo l'avvio dell'app se le migrazioni falliscono
 
-# Middleware personalizzato per CORS - Configurazione ultra-robusta
-@app.middleware("http")
-async def add_cors_headers(request, call_next):
-    # Gestisci le richieste OPTIONS (preflight)
-    if request.method == "OPTIONS":
-        response = JSONResponse({"message": "OK"})
-        response.headers["Access-Control-Allow-Origin"] = "*"
-        response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS, PATCH"
-        response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization, X-Requested-With, Accept, Origin"
-        response.headers["Access-Control-Max-Age"] = "3600"
-        response.headers["Access-Control-Allow-Credentials"] = "false"
-        return response
-    
-    # Gestisci le richieste normali
-    response = await call_next(request)
-    response.headers["Access-Control-Allow-Origin"] = "*"
-    response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS, PATCH"
-    response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization, X-Requested-With, Accept, Origin"
-    response.headers["Access-Control-Max-Age"] = "3600"
-    response.headers["Access-Control-Allow-Credentials"] = "false"
-    return response
 
 # CORS middleware - Configurazione aggiornata
 # CORS middleware - Configurazione da variabili d'ambiente
-cors_origins = settings.get_cors_origins() if settings.CORS_ORIGINS else ["*"]
+# CORS middleware - Usa variabile d'ambiente
+allowed_origins = settings.get_cors_origins() if settings.CORS_ORIGINS else ["*"]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=cors_origins,
+    allow_origins=allowed_origins,
     allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
