@@ -92,10 +92,12 @@ async def add_cors_headers(request, call_next):
     return response
 
 # CORS middleware - Configurazione aggiornata
+# CORS middleware - Configurazione da variabili d'ambiente
+cors_origins = settings.get_cors_origins() if settings.CORS_ORIGINS else ["*"]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Temporaneo: accetta tutte le origini
-    allow_credentials=False,  # Deve essere False quando allow_origins=["*"]
+    allow_origins=cors_origins,
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
     expose_headers=["*"],
