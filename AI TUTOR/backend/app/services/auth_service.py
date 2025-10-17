@@ -21,10 +21,10 @@ class AuthService:
         return pwd_context.verify(plain_password, hashed_password)
 
     def get_password_hash(self, password: str) -> str:
-    """Genera hash della password"""
-    # Tronca la password a 72 caratteri per bcrypt
+        """Genera hash della password"""
+        # Tronca la password a 72 caratteri per bcrypt
         if len(password) > 72:
-        password = password[:72]
+            password = password[:72]
         return pwd_context.hash(password)
 
     def create_access_token(self, data: dict, expires_delta: Optional[timedelta] = None) -> str:
@@ -51,145 +51,101 @@ class AuthService:
         
         # Crea l'utente
         hashed_password = self.get_password_hash(user_data.password)
-        db_user = User(
+        user = User(
             email=user_data.email,
             hashed_password=hashed_password,
-            role=user_data.role
+            role=user_data.role,
+            first_name=user_data.first_name,
+            last_name=user_data.last_name,
+            is_active=True
         )
-        self.db.add(db_user)
-        self.db.flush()  # Per ottenere l'ID
+        
+        self.db.add(user)
+        self.db.flush()  # Per ottenere l'ID dell'utente
         
         # Crea il profilo specifico in base al ruolo
         if user_data.role == Role.student:
             profile = StudentProfile(
-                user_id=db_user.id,
-                first_name=user_data.first_name,
-                last_name=user_data.last_name,
-                school_level=user_data.school_level
+                user_id=user.id,
+                grade_level=user_data.grade_level,
+                subjects=user_data.subjects or []
             )
         elif user_data.role == Role.tutor:
-            subjects = user_data.subjects.split(",") if user_data.subjects else []
             profile = TutorProfile(
-                user_id=db_user.id,
-                first_name=user_data.first_name,
-                last_name=user_data.last_name,
-                bio=user_data.bio,
-                subjects=subjects,
-                hourly_rate=user_data.hourly_rate or 15.0
+                user_id=user.id,
+                subjects=user_data.subjects or [],
+                hourly_rate=user_data.hourly_rate or 0.0,
+                bio=user_data.bio or "",
+                experience_years=user_data.experience_years or 0
             )
         elif user_data.role == Role.parent:
             profile = ParentProfile(
-                user_id=db_user.id,
-                first_name=user_data.first_name,
-                last_name=user_data.last_name,
-                phone=user_data.phone
+                user_id=user.id,
+                child_name=user_data.child_name or "",
+                child_grade_level=user_data.child_grade_level or ""
             )
         else:
-            # Per admin non creiamo un profilo specifico
-            profile = None
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Ruolo non valido"
+            )
         
-        if profile:
-            self.db.add(profile)
-        
+        self.db.add(profile)
         self.db.commit()
-        self.db.refresh(db_user)
-        return db_user
-
-    def authenticate_user(self, email: str, password: str) -> Optional[User]:
-        """Autentica un utente"""
-        user = self.db.query(User).filter(User.email == email).first()
-        if not user:
-            return None
-        if not self.verify_password(password, user.hashed_password):
-            return None
+        self.db.refresh(user)
+        
         return user
 
     def login_user(self, login_data: UserLogin) -> Token:
-        """Effettua il login e restituisce il token"""
-        user = self.authenticate_user(login_data.email, login_data.password)
+        """Autentica un utente e restituisce un token"""
+        user = self.db.query(User).filter(User.email == login_data.email).first()
         
-        if not user:
+        if not user or not self.verify_password(login_data.password, user.hashed_password):
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
-                detail="Credenziali non valide",
-                headers={"WWW-Authenticate": "Bearer"},
+                detail="Credenziali non valide"
             )
         
         if not user.is_active:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
-                detail="Utente disattivato"
+                detail="Account disabilitato"
             )
         
         access_token_expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
         access_token = self.create_access_token(
-            data={"sub": str(user.id), "role": user.role.value},
+            data={"sub": user.email, "user_id": user.id, "role": user.role.value},
             expires_delta=access_token_expires
         )
         
-        return Token(
-            access_token=access_token,
-            token_type="bearer",
-            expires_in=settings.ACCESS_TOKEN_EXPIRE_MINUTES * 60
-        )
+        return Token(access_token=access_token, token_type="bearer")
 
     def get_user_profile(self, user_id: int) -> Optional[Dict[str, Any]]:
-        """Ottiene i dati del profilo utente"""
+        """Ottiene il profilo completo di un utente"""
         user = self.db.query(User).filter(User.id == user_id).first()
         if not user:
             return None
         
-        profile_data = {
+        # Ottieni il profilo specifico in base al ruolo
+        if user.role == Role.student:
+            profile = self.db.query(StudentProfile).filter(StudentProfile.user_id == user_id).first()
+        elif user.role == Role.tutor:
+            profile = self.db.query(TutorProfile).filter(TutorProfile.user_id == user_id).first()
+        elif user.role == Role.parent:
+            profile = self.db.query(ParentProfile).filter(ParentProfile.user_id == user_id).first()
+        else:
+            return None
+        
+        if not profile:
+            return None
+        
+        return {
             "id": user.id,
             "email": user.email,
-            "role": user.role,
+            "role": user.role.value,
+            "first_name": user.first_name,
+            "last_name": user.last_name,
             "is_active": user.is_active,
             "created_at": user.created_at,
+            "profile": profile.__dict__
         }
-        
-        if user.role == Role.student and user.student_profile:
-            profile_data.update({
-                "first_name": user.student_profile.first_name,
-                "last_name": user.student_profile.last_name,
-                "school_level": user.student_profile.school_level,
-            })
-        elif user.role == Role.tutor and user.tutor_profile:
-            profile_data.update({
-                "first_name": user.tutor_profile.first_name,
-                "last_name": user.tutor_profile.last_name,
-                "bio": user.tutor_profile.bio,
-                "subjects": user.tutor_profile.subjects,
-                "hourly_rate": user.tutor_profile.hourly_rate,
-                "is_verified": user.tutor_profile.is_verified,
-            })
-        elif user.role == Role.parent and user.parent_profile:
-            profile_data.update({
-                "first_name": user.parent_profile.first_name,
-                "last_name": user.parent_profile.last_name,
-                "phone": user.parent_profile.phone,
-            })
-        
-        return profile_data
-
-    def change_password(self, user_id: int, current_password: str, new_password: str) -> bool:
-        """Cambia la password dell'utente"""
-        user = self.db.query(User).filter(User.id == user_id).first()
-        if not user:
-            return False
-        
-        if not self.verify_password(current_password, user.hashed_password):
-            return False
-        
-        user.hashed_password = self.get_password_hash(new_password)
-        self.db.commit()
-        return True
-
-    def deactivate_user(self, user_id: int) -> bool:
-        """Disattiva l'utente"""
-        user = self.db.query(User).filter(User.id == user_id).first()
-        if not user:
-            return False
-        
-        user.is_active = False
-        self.db.commit()
-        return True
