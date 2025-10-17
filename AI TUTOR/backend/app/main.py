@@ -95,13 +95,18 @@ if settings.ENV == "prod":
 @app.exception_handler(Exception)
 async def global_exception_handler(request, exc):
     """Global exception handler for unhandled errors"""
-    return JSONResponse(
+    response = JSONResponse(
         status_code=500,
         content={
             "detail": "Internal server error",
             "type": "internal_error"
         }
     )
+    # Aggiungi header CORS anche per gli errori
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS, PATCH"
+    response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization, X-Requested-With, Accept, Origin"
+    return response
 
 # Include routers
 app.include_router(health.router, prefix="/api", tags=["health"])
