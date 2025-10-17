@@ -92,14 +92,27 @@ if settings.ENV == "prod":
     )
 
 # Global exception handler
+# Global exception handler con logging dettagliato
 @app.exception_handler(Exception)
 async def global_exception_handler(request, exc):
-    """Global exception handler for unhandled errors"""
+    """Global exception handler for unhandled errors with detailed logging"""
+    logger.error(f"❌ Errore non gestito: {type(exc).__name__}: {str(exc)}")
+    logger.error(f"📍 URL: {request.url}")
+    logger.error(f"🔧 Metodo: {request.method}")
+    
+    # Logga il body della richiesta se possibile
+    try:
+        body = await request.body()
+        logger.error(f"📦 Body: {body}")
+    except Exception as e:
+        logger.error(f"❌ Errore nel leggere il body: {e}")
+    
     response = JSONResponse(
         status_code=500,
         content={
             "detail": "Internal server error",
-            "type": "internal_error"
+            "type": "internal_error",
+            "error": str(exc)
         }
     )
     # Aggiungi header CORS anche per gli errori
