@@ -67,27 +67,33 @@ const ProfileCreation: React.FC = () => {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (validateStep(currentStep)) {
-      try {
-        console.log('🔵 Step 1: Preparazione dati...');
-        // Prepara i dati per la registrazione
-        const registrationData = {
-          email: formData.email,
-          password: formData.password,
-          role: formData.userType as 'student' | 'tutor' | 'parent',
-          first_name: formData.firstName,
-          last_name: formData.lastName,
-          // Campi specifici per il ruolo
-          ...(formData.userType === 'student' && {
-            school_level: formData.schoolLevel
-          }),
-          ...(formData.userType === 'tutor' && {
-            bio: formData.bio,
-            subjects: formData.subject,
-            hourly_rate: formData.hourlyRate ? parseFloat(formData.hourlyRate) : undefined
-          })
-        };
+  e.preventDefault();
+  if (validateStep(currentStep)) {
+    try {
+      console.log('🔵 Step 1: Preparazione dati...');
+      
+      // Tronca la password a 72 caratteri per bcrypt
+      const truncatedPassword = formData.password.length > 72 
+        ? formData.password.substring(0, 72) 
+        : formData.password;
+      
+      // Prepara i dati per la registrazione
+      const registrationData = {
+        email: formData.email,
+        password: truncatedPassword, // Usa la password troncata
+        role: formData.userType as 'student' | 'tutor' | 'parent',
+        first_name: formData.firstName,
+        last_name: formData.lastName,
+        // Campi specifici per il ruolo
+        ...(formData.userType === 'student' && {
+          school_level: formData.schoolLevel
+        }),
+        ...(formData.userType === 'tutor' && {
+          bio: formData.bio,
+          subjects: formData.subject,
+          hourly_rate: formData.hourlyRate ? parseFloat(formData.hourlyRate) : undefined
+        })
+      };
 
         console.log('🔵 Step 2: Dati da inviare:', registrationData);
 
