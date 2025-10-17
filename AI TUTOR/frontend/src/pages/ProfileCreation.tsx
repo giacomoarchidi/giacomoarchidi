@@ -41,16 +41,17 @@ const ProfileCreation: React.FC = () => {
   const validateStep = (step: number): boolean => {
     const newErrors: { [key: string]: string } = {};
 
-    if (step === 1) {
-      if (!formData.firstName.trim()) newErrors.firstName = 'Il nome è obbligatorio';
-      if (!formData.lastName.trim()) newErrors.lastName = 'Il cognome è obbligatorio';
-      if (!formData.email.trim()) newErrors.email = 'L\'email è obbligatoria';
-      else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = 'Email non valida';
-      if (!formData.password.trim()) newErrors.password = 'La password è obbligatoria';
-      else if (formData.password.length < 6) newErrors.password = 'La password deve essere di almeno 6 caratteri';
-      if (!formData.confirmPassword.trim()) newErrors.confirmPassword = 'Conferma la password';
-      else if (formData.password !== formData.confirmPassword) newErrors.confirmPassword = 'Le password non coincidono';
-    }
+   if (step === 1) {
+  if (!formData.firstName.trim()) newErrors.firstName = 'Il nome è obbligatorio';
+  if (!formData.lastName.trim()) newErrors.lastName = 'Il cognome è obbligatorio';
+  if (!formData.email.trim()) newErrors.email = 'L\'email è obbligatoria';
+  else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = 'Email non valida';
+  if (!formData.password.trim()) newErrors.password = 'La password è obbligatoria';
+  else if (formData.password.length < 6) newErrors.password = 'La password deve essere di almeno 6 caratteri';
+  else if (formData.password.length > 72) newErrors.password = 'La password deve essere di massimo 72 caratteri';
+  if (!formData.confirmPassword.trim()) newErrors.confirmPassword = 'Conferma la password';
+  else if (formData.password !== formData.confirmPassword) newErrors.confirmPassword = 'Le password non coincidono';
+}
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
