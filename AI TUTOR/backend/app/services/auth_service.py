@@ -21,8 +21,11 @@ class AuthService:
         return pwd_context.verify(plain_password, hashed_password)
 
     def get_password_hash(self, password: str) -> str:
-        """Genera hash della password"""
-        return pwd_context.hash(password)
+    """Genera hash della password"""
+    # Tronca la password a 72 caratteri per bcrypt
+    if len(password) > 72:
+        password = password[:72]
+    return pwd_context.hash(password)
 
     def create_access_token(self, data: dict, expires_delta: Optional[timedelta] = None) -> str:
         """Crea un JWT token"""
