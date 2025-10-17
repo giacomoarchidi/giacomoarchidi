@@ -316,16 +316,17 @@ const ProfileCreation: React.FC = () => {
 
                   <div>
                     <label className="block text-white font-medium mb-2">Password</label>
-                    <input
+                   <input
                       type="password"
                       name="password"
                       value={formData.password}
                       onChange={handleChange}
+                      maxLength={72}
                       className={`w-full px-4 py-3 bg-white/10 border rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 ${
                         errors.password ? 'border-red-400' : 'border-white/20 hover:border-white/40'
                       }`}
-                      placeholder="Almeno 6 caratteri"
-                    />
+                      placeholder="6-72 caratteri"
+                   />
                     {errors.password && <p className="text-red-400 text-sm mt-1">{errors.password}</p>}
                   </div>
 
